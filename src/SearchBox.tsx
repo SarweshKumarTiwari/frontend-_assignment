@@ -16,7 +16,7 @@ export default function SearchBox() {
         return location.filter(e=>e.name.toLowerCase().includes(searchText.toLowerCase()))
     },[searchText,location])
 
-    const delay=useMemo(()=>debounce(getCities,2000),[])
+    const delay=useMemo(()=>debounce(getCities,300),[])
 
     async function getCities(nameName:string) {
         try {
@@ -26,7 +26,6 @@ export default function SearchBox() {
             const json=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${nameName}&count=5&language=en&format=json`) 
             const data=await json.json();
             if (data.results) {
-                console.log(data.results)
                 setlocation(data.results)
             }
             
